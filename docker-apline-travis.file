@@ -1,0 +1,15 @@
+FROM ruby:alpine3.11
+
+RUN apk add --no-cache gcc g++ clang make cmake gtest gtest-dev doxygen boost boost-dev
+ADD . prj
+WORKDIR prj
+
+RUN mkdir build
+WORKDIR build
+
+RUN cmake ..
+RUN make
+
+WORKDIR ..
+
+CMD ["build/run"]
