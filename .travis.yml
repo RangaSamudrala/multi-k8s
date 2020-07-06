@@ -6,6 +6,7 @@ env:
   global:
     - SHA=$(git rev-parse HEAD)
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    - CLOUDSDK_CONTAINER_USE_CLIENT_CERTIFICATE=1
 
 before_install:
   # Below openSSL command is obtained when encrypting the service-account.json file using travis CLI
@@ -14,6 +15,7 @@ before_install:
   - curl https://sdk.cloud.google.com | bash > /dev/null
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud components update kubectl
+  - gcloud config set container/use_client_certificate True
   - gcloud auth activate-service-account --key-file service-account.json
   - gcloud config set project multi-k8s-275217
   - gcloud config set compute/zone us-central1-a
